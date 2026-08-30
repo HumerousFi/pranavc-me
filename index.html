@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pranav C. — Security Engineer</title>
+<meta name="description" content="Portfolio of Pranav C. — cybersecurity engineer, OSCP-track, builder of the homelab-as-code SOC and pentest range.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0f14;
+    --surface: #121822;
+    --surface-2: #171f2b;
+    --line: #263141;
+    --ink: #e4e9f0;
+    --muted: #7c8b9e;
+    --muted-dim: #566173;
+    --accent: #e8a33d;
+    --accent-ink: #1a1305;
+    --accent-2: #4fb6c7;
+    --danger: #d9634b;
+    --good: #6fbf8b;
+
+    --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    --measure: 65ch;
+    --edge: clamp(1.25rem, 4vw, 4rem);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--accent); color: var(--accent-ink); }
+
+  a { color: var(--accent-2); text-decoration: none; border-bottom: 1px solid transparent; }
+  a:hover { border-bottom-color: currentColor; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  h1, h2, h3 { text-wrap: balance; margin: 0; font-weight: 600; }
+
+  code, .mono { font-family: var(--font-mono); }
+
+  /* ---------- background: faint schematic grid ---------- */
+  .grid-field {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 64px 64px;
+    opacity: 0.18;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
+  }
+
+  /* ---------- placeholder marker ---------- */
+  .ph {
+    border-bottom: 1px dashed var(--muted-dim);
+    cursor: help;
+  }
+  .ph::after {
+    content: '';
+  }
+  .ph-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--accent-2);
+    padding: 0.1em 0.4em;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-left: 0.4em;
+    transform: translateY(-1px);
+  }
+
+  /* ---------- ruler / section divider ---------- */
+  .ruler {
+    height: 1px;
+    background: var(--line);
+    position: relative;
+    margin: 0 var(--edge);
+  }
+  .ruler::before, .ruler::after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    width: 1px;
+    height: 7px;
+    background: var(--muted-dim);
+  }
+  .ruler::before { left: 0; }
+  .ruler::after { right: 0; }
+
+  /* ---------- nav ---------- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.1rem var(--edge);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--good); box-shadow: 0 0 8px var(--good); }
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+  }
+  nav a { color: var(--muted); }
+  nav a:hover { color: var(--ink); }
+
+  section { padding: clamp(3rem, 8vw, 6rem) var(--edge); max-width: 1180px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin-bottom: 1rem;
+  }
+  .eyebrow::before { content: ''; width: 1.4em; height: 1px; background: var(--accent-2); }
+
+  /* ---------- hero ---------- */
+  .hero {
+    min-height: min(88vh, 780px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: clamp(2rem, 6vw, 4rem);
+  }
+  .hero-name {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: clamp(2.4rem, 8vw, 5.2rem);
+    line-height: 1.02;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.5rem;
+  }
+  .hero-name .surname { color: var(--accent); }
+  .hero-role {
+    font-size: clamp(1.05rem, 2.4vw, 1.4rem);
+    color: var(--muted);
+    max-width: 42ch;
+    margin: 0 0 2.2rem;
+  }
+  .hero-role strong { color: var(--ink); font-weight: 600; }
+
+  .terminal {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    max-width: 560px;
+    box-shadow: 0 20px 60px -30px rgba(0,0,0,0.6);
+  }
+  .terminal-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .terminal-bar span { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+  .terminal-bar .label { margin-left: 0.5rem; color: var(--muted-dim); font-size: 0.72rem; }
+  .terminal-body { padding: 1rem 1.1rem 1.2rem; min-height: 4.6em; }
+  .terminal-body .line { color: var(--muted); }
+  .terminal-body .prompt { color: var(--accent-2); }
+  .terminal-body .out { color: var(--ink); }
+  .caret {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.05em;
+    background: var(--accent);
+    vertical-align: text-bottom;
+    animation: blink 1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+    margin-top: 2.2rem;
+  }
+  .btn {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    padding: 0.75rem 1.3rem;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    color: var(--ink);
+    transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+  }
+  .btn:hover { border-color: var(--muted-dim); transform: translateY(-1px); border-bottom-color: var(--muted-dim); }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+  .btn.primary:hover { border-bottom-color: var(--accent); background: #f0af52; }
+
+  /* ---------- about ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(260px, 0.9fr);
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: start;
+  }
+  .about-grid p { max-width: var(--measure); color: var(--muted); }
+  .about-grid p + p { margin-top: 1rem; }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .panel-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .panel-head .status { color: var(--good); display: flex; align-items: center; gap: 0.4em; }
+  .panel-head .status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--good); }
+
+  .skill-list { list-style: none; margin: 0; padding: 1rem 1.1rem 1.2rem; display: flex; flex-direction: column; gap: 0.9rem; }
+  .skill-row { display: flex; flex-direction: column; gap: 0.35rem; }
+  .skill-row .label { display: flex; justify-content: space-between; font-size: 0.82rem; }
+  .skill-row .label span:last-child { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
+  .meter { height: 5px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
+  .meter i { display: block; height: 100%; background: var(--accent-2); border-radius: 3px; }
+
+  /* ---------- projects ---------- */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.4rem;
+    margin-top: 2rem;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover { border-color: var(--muted-dim); transform: translateY(-2px); }
+  .card-head {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.85rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .led { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .led.on { background: var(--good); box-shadow: 0 0 6px var(--good); }
+  .led.idle { background: var(--muted-dim); }
+  .card-body { padding: 1.2rem 1.1rem 1.4rem; flex: 1; display: flex; flex-direction: column; }
+  .card-body h3 { font-size: 1.15rem; margin-bottom: 0.6rem; }
+  .card-body p { color: var(--muted); font-size: 0.92rem; margin: 0 0 1rem; flex: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
+    padding: 0.25em 0.55em;
+    border-radius: 4px;
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid var(--line);
+  }
+  .tag.danger { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 40%, var(--line)); }
+  .card-links { display: flex; gap: 1.2rem; font-family: var(--font-mono); font-size: 0.8rem; }
+
+  /* featured project */
+  .featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.95fr);
+  }
+  .featured .card-body { padding: 1.6rem 1.8rem 1.8rem; }
+  .featured .card-body h3 { font-size: 1.5rem; }
+  .diagram-pane {
+    border-left: 1px solid var(--line);
+    background: var(--surface-2);
+    padding: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .diagram-pane svg { width: 100%; height: auto; max-width: 420px; }
+  @media (max-width: 760px) {
+    .featured { grid-template-columns: 1fr; }
+    .diagram-pane { border-left: none; border-top: 1px solid var(--line); }
+  }
+
+  /* ---------- timeline ---------- */
+  .timeline { list-style: none; margin: 2rem 0 0; padding: 0; border-left: 1px solid var(--line); }
+  .timeline li { position: relative; padding: 0 0 2.2rem 1.6rem; }
+  .timeline li:last-child { padding-bottom: 0; }
+  .timeline li::before {
+    content: '';
+    position: absolute;
+    left: -4.5px;
+    top: 0.3em;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--accent-2);
+  }
+  .timeline .when { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.03em; }
+  .timeline h3 { font-size: 1.05rem; margin: 0.3rem 0 0.3rem; }
+  .timeline p { color: var(--muted); font-size: 0.92rem; margin: 0; max-width: var(--measure); }
+
+  /* ---------- contact ---------- */
+  .contact-panel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 2rem;
+  }
+  .contact-item {
+    background: var(--surface);
+    padding: 1.4rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .contact-item .k { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-dim); }
+  .contact-item .v { font-size: 1rem; }
+  .contact-item .v a { color: var(--ink); }
+  .contact-item .v a:hover { color: var(--accent-2); }
+
+  footer {
+    padding: 2rem var(--edge) 3rem;
+    max-width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted-dim);
+  }
+
+  @media (max-width: 720px) {
+    .about-grid { grid-template-columns: 1fr; }
+    nav { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grid-field" aria-hidden="true"></div>
+
+<header>
+  <div class="brand"><span class="dot"></span> pranavc<span style="color:var(--muted)">.me</span></div>
+  <nav>
+    <ul>
+      <li><a href="#about">about</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#experience">experience</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero" id="top">
+  <p class="eyebrow">security engineer &middot; oscp-track</p>
+  <h1 class="hero-name">Pranav <span class="surname">C.</span></h1>
+  <p class="hero-role">I build things, then try to break them &mdash; <strong>offensive security, detection engineering, and infrastructure-as-code</strong>, practiced on a homelab I run and defend myself.</p>
+
+  <div class="terminal" aria-hidden="false">
+    <div class="terminal-bar"><span></span><span></span><span></span><span class="label">zsh &mdash; pranavc@coldcoffee</span></div>
+    <div class="terminal-body mono" id="termBody">
+      <span class="line"><span class="prompt">$</span> whoami</span>
+    </div>
+  </div>
+
+  <div class="hero-actions">
+    <a class="btn primary" href="#projects">View projects</a>
+    <a class="btn" href="#" aria-describedby="resume-note">Download resume</a>
+    <a class="btn" href="#contact">Get in touch</a>
+  </div>
+  <p id="resume-note" class="mono" style="font-size:0.72rem;color:var(--muted-dim);margin-top:0.7rem;">
+    <span class="ph">resume file not linked yet<span class="ph-tag">placeholder</span></span>
+  </p>
+</section>
+
+<div class="ruler" aria-hidden="true"></div>
+
+<section id="about">
+  <p class="eyebrow">01 &middot; about</p>
+  <div class="about-grid">
+    <div>
+      <h2 style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:1.2rem;">
+        <span class="ph">A short bio goes here &mdash; who you are, what you're studying/working on, and how you got into security.<span class="ph-tag">placeholder</span></span>
+      </h2>
+      <p>
+        <span class="ph">Two or three sentences on your background: current role or degree, what pulled you toward offensive security / blue team work, and what you're focused on right now.<span class="ph-tag">placeholder</span></span>
+      </p>
+      <p>
+        Most recently, I designed and built a two-node cybersecurity homelab from bare metal: an isolated pentest range,
+        a scaled-down detection stack, and full observability &mdash; all defined as code and reproducible from a clean install.
+        It's documented publicly as proof of how I actually work, not just what I know.
+      </p>
+    </div>
+    <div class="panel">
+      <div class="panel-head">status.sh <span class="status">online</span></div>
+      <ul class="skill-list">
+        <li class="skill-row">
+          <div class="label"><span>Offensive Security</span><span>nmap · hydra · sqlmap · hashcat</span></div>
+          <div class="meter"><i style="width:70%"></i></div>
+        </li>
+        <li class="skill-row">
+          <div class="label"><span>Detection &amp; Blue Team</span><span>Suricata · CrowdSec · Loki</span></div>
+          <div class="meter"><i style="width:60%"></i></div>
+        </li>
+        <li class="skill-row">
+          <div class="label"><span>Infrastructure as Code</span><span>Ansible · Docker · KVM/libvirt</span></div>
+          <div class="meter"><i style="width:80%"></i></div>
+        </li>
+        <li class="skill-row">
+          <div class="label"><span>Networking</span><span>Tailscale · Cloudflare Tunnel</span></div>
+          <div class="meter"><i style="width:75%"></i></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="ruler" aria-hidden="true"></div>
+
+<section id="projects">
+  <p class="eyebrow">02 &middot; projects</p>
+  <h2 style="font-size:clamp(1.4rem,3vw,2rem);">Selected work</h2>
+
+  <div class="project-grid">
+
+    <article class="card featured">
+      <div class="card-body">
+        <div class="card-head" style="padding:0;border:0;margin-bottom:0.9rem;"><span class="led on"></span> ACTIVE &middot; personal infrastructure</div>
+        <h3>homelab-as-code</h3>
+        <p>
+          A two-machine cybersecurity homelab, entirely Ansible-managed: an isolated libvirt pentest range
+          (Kali attack box, DVWA, Juice Shop, Metasploitable2) reachable only from inside the mesh, a scaled-down
+          detection stack (Suricata IDS + CrowdSec + Loki/Grafana), fleet-wide observability (Prometheus, Uptime Kuma),
+          and a public status dashboard served over a Cloudflare Tunnel. Everything reproducible from a bare Ubuntu install.
+        </p>
+        <div class="tags">
+          <span class="tag">Ansible</span>
+          <span class="tag">Docker</span>
+          <span class="tag">KVM / libvirt</span>
+          <span class="tag">Suricata</span>
+          <span class="tag">Grafana</span>
+          <span class="tag">Tailscale</span>
+          <span class="tag danger">isolated range</span>
+        </div>
+        <div class="card-links">
+          <a href="https://github.com/HumerousFi/homelab-as-code">github repo &rarr;</a>
+          <a href="#"><span class="ph">live status page<span class="ph-tag">placeholder</span></span></a>
+        </div>
+      </div>
+      <div class="diagram-pane">
+        <svg viewBox="0 0 400 320" role="img" aria-labelledby="diagramTitle diagramDesc">
+          <title id="diagramTitle">Homelab network topology</title>
+          <desc id="diagramDesc">Two hosts, coldcoffee and masalachai, connected over a Tailscale mesh. Coldcoffee exposes a public dashboard via Cloudflare Tunnel. Masalachai hosts an isolated pentest range with no route out.</desc>
+
+          <!-- tailscale mesh line -->
+          <line x1="90" y1="70" x2="90" y2="230" stroke="#4fb6c7" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <text x="98" y="152" fill="#4fb6c7" font-family="IBM Plex Mono, monospace" font-size="9">tailscale</text>
+
+          <!-- coldcoffee node -->
+          <rect x="20" y="40" width="140" height="60" rx="6" fill="#171f2b" stroke="#263141"/>
+          <circle cx="34" cy="54" r="4" fill="#6fbf8b"/>
+          <text x="46" y="58" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600">coldcoffee</text>
+          <text x="34" y="76" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8">detection · grafana</text>
+          <text x="34" y="88" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8">cloudflared</text>
+
+          <!-- internet -->
+          <rect x="240" y="20" width="140" height="40" rx="6" fill="none" stroke="#566173" stroke-dasharray="3 3"/>
+          <text x="255" y="44" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="10">status.pranavc.me</text>
+          <line x1="160" y1="60" x2="240" y2="40" stroke="#e8a33d" stroke-width="1.5"/>
+
+          <!-- masalachai node -->
+          <rect x="20" y="210" width="140" height="60" rx="6" fill="#171f2b" stroke="#263141"/>
+          <circle cx="34" cy="224" r="4" fill="#6fbf8b"/>
+          <text x="46" y="228" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="11" font-weight="600">masalachai</text>
+          <text x="34" y="246" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8">libvirt · KVM host</text>
+          <text x="34" y="258" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8">GPU: hashcat</text>
+
+          <!-- isolated range -->
+          <rect x="200" y="180" width="180" height="120" rx="6" fill="none" stroke="#d9634b" stroke-dasharray="3 3"/>
+          <text x="212" y="197" fill="#d9634b" font-family="IBM Plex Mono, monospace" font-size="9">range-isolated · no route out</text>
+          <line x1="160" y1="240" x2="200" y2="210" stroke="#7c8b9e" stroke-width="1.5"/>
+
+          <rect x="216" y="210" width="70" height="34" rx="4" fill="#121822" stroke="#263141"/>
+          <text x="226" y="231" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9">kali-attack</text>
+
+          <rect x="296" y="210" width="70" height="34" rx="4" fill="#121822" stroke="#263141"/>
+          <text x="306" y="231" fill="#d9634b" font-family="IBM Plex Mono, monospace" font-size="9">DVWA</text>
+
+          <rect x="216" y="254" width="70" height="34" rx="4" fill="#121822" stroke="#263141"/>
+          <text x="221" y="275" fill="#d9634b" font-family="IBM Plex Mono, monospace" font-size="8">Metasploitable2</text>
+
+          <rect x="296" y="254" width="70" height="34" rx="4" fill="#121822" stroke="#263141"/>
+          <text x="304" y="275" fill="#d9634b" font-family="IBM Plex Mono, monospace" font-size="9">Juice Shop</text>
+        </svg>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="led idle"></span> <span class="ph">project status<span class="ph-tag">placeholder</span></span></div>
+      <div class="card-body">
+        <h3><span class="ph">Project name<span class="ph-tag">placeholder</span></span></h3>
+        <p><span class="ph">One or two sentences on what this project does and why it's worth showing.<span class="ph-tag">placeholder</span></span></p>
+        <div class="tags"><span class="tag">tag</span><span class="tag">tag</span></div>
+        <div class="card-links"><a href="#">repo &rarr;</a></div>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head"><span class="led idle"></span> <span class="ph">project status<span class="ph-tag">placeholder</span></span></div>
+      <div class="card-body">
+        <h3><span class="ph">Project name<span class="ph-tag">placeholder</span></span></h3>
+        <p><span class="ph">One or two sentences on what this project does and why it's worth showing.<span class="ph-tag">placeholder</span></span></p>
+        <div class="tags"><span class="tag">tag</span><span class="tag">tag</span></div>
+        <div class="card-links"><a href="#">repo &rarr;</a></div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<div class="ruler" aria-hidden="true"></div>
+
+<section id="experience">
+  <p class="eyebrow">03 &middot; experience &amp; education</p>
+  <h2 style="font-size:clamp(1.4rem,3vw,2rem);">Timeline</h2>
+  <ul class="timeline">
+    <li>
+      <div class="when">present</div>
+      <h3><span class="ph">Studying for OSCP<span class="ph-tag">confirm wording</span></span></h3>
+      <p>Currently working through OffSec's PWK material, practicing against the isolated range in the homelab above before sitting the exam.</p>
+    </li>
+    <li>
+      <div class="when"><span class="ph">dates<span class="ph-tag">placeholder</span></span></div>
+      <h3><span class="ph">Role or program<span class="ph-tag">placeholder</span></span></h3>
+      <p><span class="ph">What you did, in one or two sentences.<span class="ph-tag">placeholder</span></span></p>
+    </li>
+    <li>
+      <div class="when"><span class="ph">dates<span class="ph-tag">placeholder</span></span></div>
+      <h3><span class="ph">Education<span class="ph-tag">placeholder</span></span></h3>
+      <p><span class="ph">Degree, institution, focus area.<span class="ph-tag">placeholder</span></span></p>
+    </li>
+  </ul>
+</section>
+
+<div class="ruler" aria-hidden="true"></div>
+
+<section id="contact">
+  <p class="eyebrow">04 &middot; contact</p>
+  <h2 style="font-size:clamp(1.4rem,3vw,2rem);">Let's talk</h2>
+  <p style="color:var(--muted);max-width:var(--measure);margin-top:0.8rem;">Open to opportunities in offensive security, detection engineering, and infrastructure roles.</p>
+
+  <div class="contact-panel">
+    <div class="contact-item">
+      <span class="k">email</span>
+      <span class="v"><a href="#"><span class="ph">you@pranavc.me<span class="ph-tag">placeholder</span></span></a></span>
+    </div>
+    <div class="contact-item">
+      <span class="k">github</span>
+      <span class="v"><a href="https://github.com/HumerousFi">github.com/HumerousFi</a></span>
+    </div>
+    <div class="contact-item">
+      <span class="k">linkedin</span>
+      <span class="v"><a href="#"><span class="ph">linkedin.com/in/&hellip;<span class="ph-tag">placeholder</span></span></a></span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>&copy; <span id="year"></span> pranavc.me</span>
+  <span class="mono">built with ansible, coffee, and a healthy distrust of default configs</span>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Hero terminal type-on effect
+  (function () {
+    var body = document.getElementById('termBody');
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var finalHTML =
+      '<span class="line"><span class="prompt">$</span> whoami</span><br>' +
+      '<span class="out">pranav &mdash; security engineer, oscp-track, homelab operator</span><br><br>' +
+      '<span class="line"><span class="prompt">$</span> <span class="caret"></span></span>';
+
+    if (reduced) { body.innerHTML = finalHTML; return; }
+
+    var out = 'pranav — security engineer, oscp-track, homelab operator';
+    var i = 0;
+    var line1 = '<span class="line"><span class="prompt">$</span> whoami</span><br>';
+    body.innerHTML = line1 + '<span class="out"></span>';
+    var target = body.querySelector('.out');
+
+    function type() {
+      if (i <= out.length) {
+        target.textContent = out.slice(0, i);
+        i++;
+        setTimeout(type, 28);
+      } else {
+        body.innerHTML = finalHTML;
+      }
+    }
+    setTimeout(type, 500);
+  })();
+</script>
+
+</body>
+</html>
