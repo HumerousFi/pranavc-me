@@ -60,18 +60,67 @@
 
   code, .mono { font-family: var(--font-mono); }
 
-  /* ---------- background: faint schematic grid ---------- */
-  .grid-field {
-    position: fixed;
+  /* ---------- background: per-section themed schematic layers ---------- */
+  .bg-layers { position: fixed; inset: 0; z-index: -1; }
+  .bg-layer {
+    position: absolute;
     inset: 0;
-    z-index: -1;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    pointer-events: none;
+  }
+
+  .bg-top {
     background-image:
       linear-gradient(var(--line) 1px, transparent 1px),
       linear-gradient(90deg, var(--line) 1px, transparent 1px);
     background-size: 64px 64px;
-    opacity: 0.18;
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
   }
+  .bg-top.active { opacity: 0.18; }
+
+  .bg-about {
+    background-image: radial-gradient(var(--muted-dim) 1px, transparent 1px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+  }
+  .bg-about.active { opacity: 0.16; }
+
+  .bg-projects {
+    background-image:
+      linear-gradient(var(--accent-2) 1px, transparent 1px),
+      linear-gradient(90deg, var(--accent-2) 1px, transparent 1px);
+    background-size: 96px 96px;
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+  }
+  .bg-projects.active { opacity: 0.09; }
+
+  .bg-experience {
+    background-image: linear-gradient(var(--muted-dim) 1px, transparent 1px);
+    background-size: 100% 28px;
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+  }
+  .bg-experience.active { opacity: 0.1; }
+
+  .bg-awards {
+    background-image:
+      repeating-linear-gradient(60deg, var(--accent) 0 1px, transparent 1px 46px),
+      repeating-linear-gradient(-60deg, var(--accent) 0 1px, transparent 1px 46px);
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+  }
+  .bg-awards.active { opacity: 0.07; }
+
+  .bg-contact {
+    background-image: repeating-radial-gradient(circle at 50% 42%, var(--accent-2) 0 1px, transparent 1px 64px);
+    mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+    -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
+  }
+  .bg-contact.active { opacity: 0.12; }
 
   /* ---------- scroll-reveal ---------- */
   .reveal { transition: opacity .7s var(--ease), transform .7s var(--ease); }
@@ -510,7 +559,14 @@
 </head>
 <body>
 
-<div class="grid-field" aria-hidden="true"></div>
+<div class="bg-layers" aria-hidden="true">
+  <div class="bg-layer bg-top active" data-bg="top"></div>
+  <div class="bg-layer bg-about" data-bg="about"></div>
+  <div class="bg-layer bg-projects" data-bg="projects"></div>
+  <div class="bg-layer bg-experience" data-bg="experience"></div>
+  <div class="bg-layer bg-awards" data-bg="awards"></div>
+  <div class="bg-layer bg-contact" data-bg="contact"></div>
+</div>
 
 <header>
   <div class="brand"><span class="dot"></span> pranavc<span style="color:var(--muted)">.me</span></div>
@@ -972,22 +1028,33 @@
     });
   })();
 
-  // Scrollspy active nav link
+  // Scrollspy active nav link + themed background crossfade
   (function () {
     var sections = document.querySelectorAll('section[id]');
     var links = document.querySelectorAll('#siteNav a');
-    if (!sections.length || !links.length || !('IntersectionObserver' in window)) return;
+    var bgLayers = document.querySelectorAll('.bg-layer');
+    if (!sections.length || !('IntersectionObserver' in window)) return;
 
-    var map = {};
-    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+    var linkMap = {};
+    links.forEach(function (a) { linkMap[a.getAttribute('href').slice(1)] = a; });
+
+    var bgMap = {};
+    bgLayers.forEach(function (el) { bgMap[el.getAttribute('data-bg')] = el; });
 
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        var link = map[entry.target.id];
-        if (!link) return;
-        if (entry.isIntersecting) {
+        if (!entry.isIntersecting) return;
+
+        var link = linkMap[entry.target.id];
+        if (link) {
           links.forEach(function (a) { a.classList.remove('active'); });
           link.classList.add('active');
+        }
+
+        var bg = bgMap[entry.target.id];
+        if (bg) {
+          bgLayers.forEach(function (el) { el.classList.remove('active'); });
+          bg.classList.add('active');
         }
       });
     }, { rootMargin: '-45% 0px -45% 0px' });
