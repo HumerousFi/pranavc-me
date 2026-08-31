@@ -1083,6 +1083,13 @@
       <span class="k">linkedin</span>
       <span class="v"><a href="https://linkedin.com/in/pranav27chaturvedi">linkedin.com/in/pranav27chaturvedi</a></span>
     </div>
+    <div class="info-item">
+      <span class="k">discord</span>
+      <span class="v email-row">
+        humerousironman
+        <button class="copy-btn" type="button" data-copy="humerousironman">copy</button>
+      </span>
+    </div>
   </div>
 </section>
 
@@ -1260,21 +1267,20 @@
     updateActive();
   })();
 
-  // Copy email
+  // Copy-to-clipboard buttons (email, discord, ...)
   (function () {
-    var btn = document.querySelector('.copy-btn');
-    if (!btn) return;
-    btn.addEventListener('click', function () {
-      var text = btn.getAttribute('data-copy');
-      var done = function () {
-        var original = 'copy';
-        btn.textContent = 'copied';
-        btn.classList.add('copied');
-        setTimeout(function () { btn.textContent = original; btn.classList.remove('copied'); }, 1600);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(done).catch(function () {});
-      }
+    document.querySelectorAll('.copy-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var text = btn.getAttribute('data-copy');
+        var done = function () {
+          btn.textContent = 'copied';
+          btn.classList.add('copied');
+          setTimeout(function () { btn.textContent = 'copy'; btn.classList.remove('copied'); }, 1600);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(function () {});
+        }
+      });
     });
   })();
 </script>
