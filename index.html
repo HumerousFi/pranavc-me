@@ -4,7 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pranav Chaturvedi — Security Engineer</title>
-<meta name="description" content="Portfolio of Pranav Chaturvedi — Cybersecurity & Digital Forensics graduate, OSCP-track, builder of offensive security tooling and a self-hosted SOC/pentest range.">
+<meta name="description" content="Portfolio of Pranav Chaturvedi — Cybersecurity & Digital Forensics graduate, OSCP-track, builder of offensive security tooling, ML-based detection, and a self-hosted SOC/pentest range.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0f14'/%3E%3Ccircle cx='16' cy='16' r='8' fill='%236fbf8b'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -28,6 +29,7 @@
 
     --measure: 65ch;
     --edge: clamp(1.25rem, 4vw, 4rem);
+    --ease: cubic-bezier(.16,.84,.44,1);
   }
 
   * { box-sizing: border-box; }
@@ -71,28 +73,10 @@
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 90%);
   }
 
-  /* ---------- placeholder marker ---------- */
-  .ph {
-    border-bottom: 1px dashed var(--muted-dim);
-    cursor: help;
-  }
-  .ph::after {
-    content: '';
-  }
-  .ph-tag {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 0.6rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--bg);
-    background: var(--accent-2);
-    padding: 0.1em 0.4em;
-    border-radius: 2px;
-    vertical-align: middle;
-    margin-left: 0.4em;
-    transform: translateY(-1px);
-  }
+  /* ---------- scroll-reveal ---------- */
+  .reveal { transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.pending { opacity: 0; transform: translateY(20px); }
+  .reveal.visible { opacity: 1; transform: none; }
 
   /* ---------- ruler / section divider ---------- */
   .ruler {
@@ -144,8 +128,23 @@
     font-family: var(--font-mono);
     font-size: 0.8rem;
   }
-  nav a { color: var(--muted); }
+  nav a { color: var(--muted); transition: color .15s ease; }
   nav a:hover { color: var(--ink); }
+  nav a.active { color: var(--accent-2); border-bottom-color: currentColor; }
+
+  .nav-toggle {
+    display: none;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    color: var(--ink);
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .nav-toggle:hover { border-color: var(--muted-dim); }
 
   section { padding: clamp(3rem, 8vw, 6rem) var(--edge); max-width: 1180px; margin: 0 auto; }
 
@@ -164,7 +163,7 @@
 
   /* ---------- hero ---------- */
   .hero {
-    min-height: min(88vh, 780px);
+    min-height: min(88vh, 820px);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -195,17 +194,28 @@
     border-radius: 8px;
     max-width: 560px;
     box-shadow: 0 20px 60px -30px rgba(0,0,0,0.6);
+    overflow: hidden;
   }
   .terminal-bar {
     display: flex;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 0.4rem;
     padding: 0.6rem 0.8rem;
     border-bottom: 1px solid var(--line);
   }
-  .terminal-bar span { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
-  .terminal-bar .label { margin-left: 0.5rem; color: var(--muted-dim); font-size: 0.72rem; }
-  .terminal-body { padding: 1rem 1.1rem 1.2rem; min-height: 4.6em; }
+  .terminal-bar .dots { display: flex; gap: 0.4rem; flex-shrink: 0; }
+  .terminal-bar .dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+  .terminal-bar .label {
+    margin-left: 0.5rem;
+    color: var(--muted-dim);
+    font-size: 0.72rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+  .terminal-body { padding: 1rem 1.1rem 1.2rem; min-height: 4.8em; overflow: hidden; }
   .terminal-body .line { color: var(--muted); }
   .terminal-body .prompt { color: var(--accent-2); }
   .terminal-body .out { color: var(--ink); }
@@ -226,6 +236,7 @@
     margin-top: 2.2rem;
   }
   .btn {
+    position: relative;
     font-family: var(--font-mono);
     font-size: 0.8rem;
     letter-spacing: 0.02em;
@@ -233,11 +244,39 @@
     border-radius: 6px;
     border: 1px solid var(--line);
     color: var(--ink);
+    overflow: hidden;
     transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
   }
   .btn:hover { border-color: var(--muted-dim); transform: translateY(-1px); border-bottom-color: var(--muted-dim); }
   .btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
   .btn.primary:hover { border-bottom-color: var(--accent); background: #f0af52; }
+  .btn.primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,0.35) 48%, transparent 66%);
+    transform: translateX(-120%);
+    transition: transform .6s ease;
+  }
+  .btn.primary:hover::after { transform: translateX(120%); }
+
+  /* ---------- stats strip ---------- */
+  .stats-strip { margin-top: 2.8rem; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    max-width: 720px;
+  }
+  .stat { background: var(--surface); padding: 1rem 1.2rem; display: flex; flex-direction: column; gap: 0.3rem; }
+  .stat-num, .stat-num-text { font-family: var(--font-mono); font-weight: 700; font-size: 1.8rem; line-height: 1; }
+  .stat-num { color: var(--accent); }
+  .stat-num-text { color: var(--accent-2); }
+  .stat-label { font-size: 0.72rem; color: var(--muted); line-height: 1.3; }
 
   /* ---------- about ---------- */
   .about-grid {
@@ -275,7 +314,8 @@
   .skill-row .label { display: flex; justify-content: space-between; font-size: 0.82rem; }
   .skill-row .label span:last-child { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); }
   .meter { height: 5px; background: var(--surface-2); border-radius: 3px; overflow: hidden; }
-  .meter i { display: block; height: 100%; background: var(--accent-2); border-radius: 3px; }
+  .meter i { display: block; width: 0; height: 100%; background: var(--accent-2); border-radius: 3px; transition: width 1.1s var(--ease); }
+  .panel.filled .meter i { width: var(--w); }
 
   /* ---------- projects ---------- */
   .project-grid {
@@ -285,14 +325,27 @@
     margin-top: 2rem;
   }
   .card {
+    position: relative;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     transition: border-color 0.15s ease, transform 0.15s ease;
   }
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(260px circle at var(--mx,50%) var(--my,50%), color-mix(in srgb, var(--accent-2) 14%, transparent), transparent 70%);
+    opacity: 0;
+    transition: opacity .3s ease;
+    pointer-events: none;
+  }
   .card:hover { border-color: var(--muted-dim); transform: translateY(-2px); }
+  .card:hover::before { opacity: 1; }
+  .card-head, .card-body, .diagram-pane { position: relative; z-index: 1; }
   .card-head {
     display: flex;
     align-items: center;
@@ -306,6 +359,7 @@
   .led { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
   .led.on { background: var(--good); box-shadow: 0 0 6px var(--good); }
   .led.idle { background: var(--muted-dim); }
+  .led.wip { background: var(--accent); box-shadow: 0 0 6px var(--accent); }
   .card-body { padding: 1.2rem 1.1rem 1.4rem; flex: 1; display: flex; flex-direction: column; }
   .card-body h3 { font-size: 1.15rem; margin-bottom: 0.6rem; }
   .card-body p { color: var(--muted); font-size: 0.92rem; margin: 0 0 1rem; flex: 1; }
@@ -321,7 +375,8 @@
     border: 1px solid var(--line);
   }
   .tag.danger { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 40%, var(--line)); }
-  .card-links { display: flex; gap: 1.2rem; font-family: var(--font-mono); font-size: 0.8rem; }
+  .tag.wip { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, var(--line)); }
+  .card-links { display: flex; flex-wrap: wrap; gap: 1.2rem; font-family: var(--font-mono); font-size: 0.8rem; }
 
   /* featured project */
   .featured {
@@ -345,6 +400,15 @@
     .diagram-pane { border-left: none; border-top: 1px solid var(--line); }
   }
 
+  .project-grid .card:nth-child(1) { transition-delay: 0s; }
+  .project-grid .card:nth-child(2) { transition-delay: .05s; }
+  .project-grid .card:nth-child(3) { transition-delay: .1s; }
+  .project-grid .card:nth-child(4) { transition-delay: .15s; }
+  .project-grid .card:nth-child(5) { transition-delay: .2s; }
+  .project-grid .card:nth-child(6) { transition-delay: .25s; }
+  .project-grid .card:nth-child(7) { transition-delay: .3s; }
+  .project-grid .card:nth-child(8) { transition-delay: .35s; }
+
   /* ---------- timeline ---------- */
   .timeline { list-style: none; margin: 2rem 0 0; padding: 0; border-left: 1px solid var(--line); }
   .timeline li { position: relative; padding: 0 0 2.2rem 1.6rem; }
@@ -363,9 +427,13 @@
   .timeline .when { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.03em; }
   .timeline h3 { font-size: 1.05rem; margin: 0.3rem 0 0.3rem; }
   .timeline p { color: var(--muted); font-size: 0.92rem; margin: 0; max-width: var(--measure); }
+  .timeline li:nth-child(1) { transition-delay: 0s; }
+  .timeline li:nth-child(2) { transition-delay: .06s; }
+  .timeline li:nth-child(3) { transition-delay: .12s; }
+  .timeline li:nth-child(4) { transition-delay: .18s; }
 
-  /* ---------- contact ---------- */
-  .contact-panel {
+  /* ---------- info-grid (reused for contact + awards) ---------- */
+  .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1px;
@@ -375,17 +443,39 @@
     overflow: hidden;
     margin-top: 2rem;
   }
-  .contact-item {
+  .info-item {
     background: var(--surface);
     padding: 1.4rem 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
   }
-  .contact-item .k { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-dim); }
-  .contact-item .v { font-size: 1rem; }
-  .contact-item .v a { color: var(--ink); }
-  .contact-item .v a:hover { color: var(--accent-2); }
+  .info-item .k { display: flex; align-items: center; gap: 0.5em; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-dim); }
+  .info-item .v { font-size: 1rem; }
+  .info-item .v a { color: var(--ink); }
+  .info-item .v a:hover { color: var(--accent-2); }
+  .info-item .sub { font-size: 0.8rem; color: var(--muted); }
+
+  .email-row { display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap; }
+  .copy-btn {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    padding: 0.2em 0.55em;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color .15s ease, border-color .15s ease;
+  }
+  .copy-btn:hover { color: var(--ink); border-color: var(--muted-dim); }
+  .copy-btn.copied { color: var(--good); border-color: var(--good); }
+
+  .info-item:nth-child(1) { transition-delay: 0s; }
+  .info-item:nth-child(2) { transition-delay: .05s; }
+  .info-item:nth-child(3) { transition-delay: .1s; }
+  .info-item:nth-child(4) { transition-delay: .15s; }
+  .info-item:nth-child(5) { transition-delay: .2s; }
 
   footer {
     padding: 2rem var(--edge) 3rem;
@@ -402,7 +492,19 @@
 
   @media (max-width: 720px) {
     .about-grid { grid-template-columns: 1fr; }
-    nav { display: none; }
+    .nav-toggle { display: block; }
+    header nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      padding: 0.5rem var(--edge) 1.2rem;
+    }
+    header nav.open { display: block; }
+    header nav ul { flex-direction: column; gap: 1rem; font-size: 0.95rem; }
   }
 </style>
 </head>
@@ -412,11 +514,13 @@
 
 <header>
   <div class="brand"><span class="dot"></span> pranavc<span style="color:var(--muted)">.me</span></div>
-  <nav>
+  <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="siteNav">≡</button>
+  <nav id="siteNav">
     <ul>
       <li><a href="#about">about</a></li>
       <li><a href="#projects">projects</a></li>
       <li><a href="#experience">experience</a></li>
+      <li><a href="#awards">awards</a></li>
       <li><a href="#contact">contact</a></li>
     </ul>
   </nav>
@@ -428,7 +532,10 @@
   <p class="hero-role">I build things, then try to break them &mdash; <strong>offensive security tooling, ML-based detection, and infrastructure-as-code</strong>, practiced on a homelab I run and defend myself.</p>
 
   <div class="terminal" aria-hidden="false">
-    <div class="terminal-bar"><span></span><span></span><span></span><span class="label">zsh &mdash; pranav@coldcoffee</span></div>
+    <div class="terminal-bar">
+      <div class="dots"><span></span><span></span><span></span></div>
+      <span class="label">zsh &mdash; pranav@coldcoffee</span>
+    </div>
     <div class="terminal-body mono" id="termBody">
       <span class="line"><span class="prompt">$</span> whoami</span>
     </div>
@@ -439,6 +546,15 @@
     <a class="btn" href="resume.pdf" target="_blank" rel="noopener">Download resume</a>
     <a class="btn" href="#contact">Get in touch</a>
   </div>
+
+  <div class="stats-strip">
+    <div class="stats-grid">
+      <div class="stat"><span class="stat-num" data-count="2">0</span><span class="stat-label">security internships</span></div>
+      <div class="stat"><span class="stat-num" data-count="8">0</span><span class="stat-label">projects shipped</span></div>
+      <div class="stat"><span class="stat-num" data-count="1" data-suffix="st">0</span><span class="stat-label">place, Cyber Conclave CTF &middot; ~300 competitors</span></div>
+      <div class="stat"><span class="stat-num-text">OSCP</span><span class="stat-label">certification track, in progress</span></div>
+    </div>
+  </div>
 </section>
 
 <div class="ruler" aria-hidden="true"></div>
@@ -446,13 +562,13 @@
 <section id="about">
   <p class="eyebrow">01 &middot; about</p>
   <div class="about-grid">
-    <div>
+    <div class="reveal">
       <h2 style="font-size:clamp(1.4rem,3vw,2rem);margin-bottom:1.2rem;">
         I break things on purpose, then build the tooling to catch it happening again.
       </h2>
       <p>
         Cybersecurity &amp; Digital Forensics graduate from VIT Bhopal, focused on web application security, exploit
-        development, and system hardening. Two internships in &mdash; CSI Cyber Secured India and Unified Mentor &mdash;
+        development, and system hardening. Two internships &mdash; CSI Cyber Secured India and Unified Mentor &mdash;
         doing vulnerability assessment and security audits against real client systems. I build offensive security
         tooling and ML-based detection systems from the ground up in Python, currently working toward OSCP.
       </p>
@@ -461,30 +577,30 @@
         a scaled-down detection stack, and full observability &mdash; all defined as code and reproducible from a clean install.
         It's documented publicly as proof of how I actually work, not just what I know.
       </p>
-      <p style="font-size:0.85rem;color:var(--muted-dim);">
-        Certified: <a href="https://coursera.org/share/faf057760d165178bd42db8ce9f2fbaa">Google Cybersecurity</a> ·
-        <a href="https://coursera.org/share/7c8ea9aa84685496d345fd6f7201f435">Networking &amp; Cyber Security, Google</a> ·
-        EC-Council CEH (in progress)
+      <p>
+        I'd rather ship something small and honest &mdash; including the parts that aren't finished yet &mdash; than
+        polish a demo that doesn't reflect the real state of the work. A few projects below are still mid-build; I've
+        labeled them as such.
       </p>
     </div>
-    <div class="panel">
+    <div class="panel reveal">
       <div class="panel-head">status.sh <span class="status">online</span></div>
       <ul class="skill-list">
         <li class="skill-row">
           <div class="label"><span>Offensive Security</span><span>Burp Suite · Nmap · sqlmap · hydra</span></div>
-          <div class="meter"><i style="width:75%"></i></div>
+          <div class="meter"><i style="--w:75%"></i></div>
         </li>
         <li class="skill-row">
           <div class="label"><span>Detection &amp; ML</span><span>Suricata · CrowdSec · scikit-learn</span></div>
-          <div class="meter"><i style="width:60%"></i></div>
+          <div class="meter"><i style="--w:60%"></i></div>
         </li>
         <li class="skill-row">
           <div class="label"><span>Infrastructure as Code</span><span>Ansible · Docker · KVM/libvirt</span></div>
-          <div class="meter"><i style="width:80%"></i></div>
+          <div class="meter"><i style="--w:80%"></i></div>
         </li>
         <li class="skill-row">
           <div class="label"><span>Networking</span><span>Tailscale · Cloudflare Tunnel</span></div>
-          <div class="meter"><i style="width:75%"></i></div>
+          <div class="meter"><i style="--w:75%"></i></div>
         </li>
       </ul>
     </div>
@@ -499,7 +615,7 @@
 
   <div class="project-grid">
 
-    <article class="card featured">
+    <article class="card featured reveal">
       <div class="card-body">
         <div class="card-head" style="padding:0;border:0;margin-bottom:0.9rem;"><span class="led on"></span> ACTIVE &middot; personal infrastructure</div>
         <h3>homelab-as-code</h3>
@@ -571,7 +687,7 @@
       </div>
     </article>
 
-    <article class="card">
+    <article class="card reveal">
       <div class="card-head"><span class="led on"></span> Aug 2024 &ndash; Jan 2025</div>
       <div class="card-body">
         <h3>WebGuardian</h3>
@@ -581,7 +697,7 @@
       </div>
     </article>
 
-    <article class="card">
+    <article class="card reveal">
       <div class="card-head"><span class="led on"></span> Jan &ndash; Apr 2025</div>
       <div class="card-body">
         <h3>Intrusion Detection System (ML)</h3>
@@ -591,13 +707,53 @@
       </div>
     </article>
 
-    <article class="card">
+    <article class="card reveal">
       <div class="card-head"><span class="led on"></span> Feb 2026</div>
       <div class="card-body">
         <h3>Zero-Trust Self-Hosted Infra</h3>
         <p>A production-style Nextcloud/MariaDB/Redis stack on Docker Compose with zero exposed inbound ports &mdash; admin access via Tailscale, public HTTPS via Cloudflare Tunnel, version-pinned images, an isolated DB container, and automated volume-level backups.</p>
         <div class="tags"><span class="tag">Docker</span><span class="tag">Tailscale</span><span class="tag">Cloudflare Tunnel</span></div>
         <div class="card-links"><a href="https://github.com/HumerousFi/nextcloud-homelab">github repo &rarr;</a></div>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-head"><span class="led on"></span> ongoing log</div>
+      <div class="card-body">
+        <h3>PortSwigger Labs</h3>
+        <p>Solutions and notes for the PortSwigger Web Security Academy, organized by vulnerability class. Every solved lab pairs a runnable exploit script with a short write-up of the underlying flaw and the reasoning that found it.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Web AppSec</span><span class="tag">Burp Suite</span></div>
+        <div class="card-links"><a href="https://github.com/HumerousFi/portswigger-labs">github repo &rarr;</a></div>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-head"><span class="led wip"></span> actively building</div>
+      <div class="card-body">
+        <h3>Sentinel &mdash; Log Analyzer</h3>
+        <p>A security-analyst-in-a-box for small teams: upload auth/Apache/Nginx/firewall logs and get plain-English findings on brute-force attempts, suspicious IPs, and scanning activity. The FastAPI shell &mdash; auth, Stripe billing, gated dashboard &mdash; is built; the analysis engine is being rebuilt now. Shipping it honestly, mid-build.</p>
+        <div class="tags"><span class="tag">FastAPI</span><span class="tag">Stripe</span><span class="tag">SQLAlchemy</span><span class="tag wip">in progress</span></div>
+        <div class="card-links"><a href="https://github.com/HumerousFi/log-analyzer">github repo &rarr;</a></div>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-head"><span class="led idle"></span> coursework project</div>
+      <div class="card-body">
+        <h3>CyberShield</h3>
+        <p>A front-end concept for a community cybersecurity-incident reporting tool &mdash; an incident report form, a browsable threat database, and incident search, built in vanilla HTML/CSS as a UI exercise.</p>
+        <div class="tags"><span class="tag">HTML/CSS</span><span class="tag">UI/UX</span></div>
+        <div class="card-links"><a href="https://github.com/HumerousFi/websec-fundamentals-ui">github repo &rarr;</a></div>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-head"><span class="led idle"></span> university capstone &middot; team</div>
+      <div class="card-body">
+        <h3>Deepfake Detector</h3>
+        <p>Group capstone project for my B.Tech &mdash; a deepfake-detection web application pairing a computer-vision classification backend with a web frontend for uploading and screening media.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Computer Vision</span><span class="tag">Group project</span></div>
+        <div class="card-links"><a href="https://github.com/HumerousFi/Capstone-group-project">github repo &rarr;</a></div>
       </div>
     </article>
 
@@ -610,46 +766,83 @@
   <p class="eyebrow">03 &middot; experience &amp; education</p>
   <h2 style="font-size:clamp(1.4rem,3vw,2rem);">Timeline</h2>
   <ul class="timeline">
-    <li>
+    <li class="reveal">
       <div class="when">present</div>
       <h3>Preparing for OSCP</h3>
       <p>Practicing against the isolated range in the homelab above before sitting the exam. EC-Council CEH also in progress.</p>
     </li>
-    <li>
+    <li class="reveal">
       <div class="when">May 2026 &ndash; Aug 2026</div>
       <h3>Cybersecurity Intern, Unified Mentor</h3>
       <p>Vulnerability assessment and security best practices under mentorship &mdash; applied penetration testing and network security concepts to practical assignments and case studies.</p>
     </li>
-    <li>
+    <li class="reveal">
       <div class="when">Sep 2024 &ndash; Jan 2025</div>
       <h3>Cybersecurity Intern, CSI Cyber Secured India</h3>
       <p>Identified and assessed security vulnerabilities across client systems and web applications; supported vulnerability scanning, security audits, and findings documentation.</p>
     </li>
-    <li>
+    <li class="reveal">
       <div class="when">Sept 2022 &ndash; Feb 2026</div>
       <h3>B.Tech, Cybersecurity &amp; Digital Forensics</h3>
-      <p>Vellore Institute of Technology (VIT), Bhopal. 1st prize, Cybersecurity Reverse Engineering (Cranes Varsity) · 1st prize of ~300 students, Cyber Conclave CTF.</p>
+      <p>Vellore Institute of Technology (VIT), Bhopal.</p>
     </li>
   </ul>
 </section>
 
 <div class="ruler" aria-hidden="true"></div>
 
+<section id="awards">
+  <p class="eyebrow">04 &middot; certifications &amp; awards</p>
+  <h2 style="font-size:clamp(1.4rem,3vw,2rem);">Proof of work, on paper</h2>
+  <div class="info-grid reveal">
+    <div class="info-item">
+      <span class="k"><span class="led on"></span> certification</span>
+      <span class="v"><a href="https://coursera.org/share/faf057760d165178bd42db8ce9f2fbaa">Google Cybersecurity Professional Certificate</a></span>
+      <span class="sub">Coursera &middot; issued</span>
+    </div>
+    <div class="info-item">
+      <span class="k"><span class="led on"></span> certification</span>
+      <span class="v"><a href="https://coursera.org/share/7c8ea9aa84685496d345fd6f7201f435">Networking &amp; Cyber Security</a></span>
+      <span class="sub">Google via Coursera &middot; issued</span>
+    </div>
+    <div class="info-item">
+      <span class="k"><span class="led wip"></span> certification</span>
+      <span class="v">EC-Council CEH</span>
+      <span class="sub">in progress</span>
+    </div>
+    <div class="info-item">
+      <span class="k"><span class="led on"></span> award</span>
+      <span class="v">1st Prize, Cybersecurity Reverse Engineering</span>
+      <span class="sub">Cranes Varsity</span>
+    </div>
+    <div class="info-item">
+      <span class="k"><span class="led on"></span> award</span>
+      <span class="v">1st Prize, Cyber Conclave CTF</span>
+      <span class="sub">~300 competitors</span>
+    </div>
+  </div>
+</section>
+
+<div class="ruler" aria-hidden="true"></div>
+
 <section id="contact">
-  <p class="eyebrow">04 &middot; contact</p>
+  <p class="eyebrow">05 &middot; contact</p>
   <h2 style="font-size:clamp(1.4rem,3vw,2rem);">Let's talk</h2>
   <p style="color:var(--muted);max-width:var(--measure);margin-top:0.8rem;">Open to opportunities in offensive security, detection engineering, and infrastructure roles.</p>
 
-  <div class="contact-panel">
-    <div class="contact-item">
+  <div class="info-grid reveal">
+    <div class="info-item">
       <span class="k">email</span>
-      <span class="v"><a href="mailto:pranavchaturvedi27august@gmail.com">pranavchaturvedi27august@gmail.com</a></span>
+      <span class="v email-row">
+        <a href="mailto:pranavchaturvedi27august@gmail.com">pranavchaturvedi27august@gmail.com</a>
+        <button class="copy-btn" type="button" data-copy="pranavchaturvedi27august@gmail.com">copy</button>
+      </span>
     </div>
-    <div class="contact-item">
+    <div class="info-item">
       <span class="k">github</span>
       <span class="v"><a href="https://github.com/HumerousFi">github.com/HumerousFi</a></span>
     </div>
-    <div class="contact-item">
+    <div class="info-item">
       <span class="k">linkedin</span>
       <span class="v"><a href="https://linkedin.com/in/pranav27chaturvedi">linkedin.com/in/pranav27chaturvedi</a></span>
     </div>
@@ -663,17 +856,17 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Hero terminal type-on effect
   (function () {
     var body = document.getElementById('termBody');
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var finalHTML =
       '<span class="line"><span class="prompt">$</span> whoami</span><br>' +
       '<span class="out">pranav chaturvedi &mdash; cybersecurity &amp; digital forensics grad, oscp-track</span><br><br>' +
       '<span class="line"><span class="prompt">$</span> <span class="caret"></span></span>';
 
-    if (reduced) { body.innerHTML = finalHTML; return; }
+    if (reducedMotion) { body.innerHTML = finalHTML; return; }
 
     var out = 'pranav chaturvedi — cybersecurity & digital forensics grad, oscp-track';
     var i = 0;
@@ -691,6 +884,133 @@
       }
     }
     setTimeout(type, 500);
+  })();
+
+  // Mobile nav toggle
+  (function () {
+    var toggle = document.querySelector('.nav-toggle');
+    var navEl = document.getElementById('siteNav');
+    if (!toggle || !navEl) return;
+    toggle.addEventListener('click', function () {
+      var open = navEl.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    navEl.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        navEl.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  // Scroll reveal + skill-meter fill, one-shot per element
+  (function () {
+    var els = document.querySelectorAll('.reveal');
+    if (reducedMotion || !('IntersectionObserver' in window)) return;
+
+    els.forEach(function (el, i) {
+      el.classList.add('pending');
+      el.style.transitionDelay = ((i % 5) * 70) + 'ms';
+    });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          entry.target.classList.remove('pending');
+          if (entry.target.classList.contains('panel')) entry.target.classList.add('filled');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    els.forEach(function (el) { io.observe(el); });
+  })();
+
+  // Stat count-up, one-shot
+  (function () {
+    var strip = document.querySelector('.stats-strip');
+    var nums = document.querySelectorAll('.stat-num');
+    if (!strip || !nums.length) return;
+
+    function run() {
+      nums.forEach(function (el) {
+        var target = parseInt(el.getAttribute('data-count'), 10) || 0;
+        var suffix = el.getAttribute('data-suffix') || '';
+        if (reducedMotion) { el.textContent = target + suffix; return; }
+        var start = null;
+        var duration = 900;
+        function step(ts) {
+          if (!start) start = ts;
+          var progress = Math.min((ts - start) / duration, 1);
+          el.textContent = Math.floor(progress * target) + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target + suffix;
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    if (!('IntersectionObserver' in window)) { run(); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { run(); io.unobserve(entry.target); }
+      });
+    }, { threshold: 0.4 });
+    io.observe(strip);
+  })();
+
+  // Card cursor-glow
+  (function () {
+    if (reducedMotion) return;
+    document.addEventListener('mousemove', function (e) {
+      var card = e.target.closest && e.target.closest('.card');
+      if (!card) return;
+      var rect = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100) + '%');
+    });
+  })();
+
+  // Scrollspy active nav link
+  (function () {
+    var sections = document.querySelectorAll('section[id]');
+    var links = document.querySelectorAll('#siteNav a');
+    if (!sections.length || !links.length || !('IntersectionObserver' in window)) return;
+
+    var map = {};
+    links.forEach(function (a) { map[a.getAttribute('href').slice(1)] = a; });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var link = map[entry.target.id];
+        if (!link) return;
+        if (entry.isIntersecting) {
+          links.forEach(function (a) { a.classList.remove('active'); });
+          link.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+
+    sections.forEach(function (s) { io.observe(s); });
+  })();
+
+  // Copy email
+  (function () {
+    var btn = document.querySelector('.copy-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var text = btn.getAttribute('data-copy');
+      var done = function () {
+        var original = 'copy';
+        btn.textContent = 'copied';
+        btn.classList.add('copied');
+        setTimeout(function () { btn.textContent = original; btn.classList.remove('copied'); }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () {});
+      }
+    });
   })();
 </script>
 
