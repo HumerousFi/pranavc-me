@@ -96,7 +96,7 @@
     mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
     -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
   }
-  .bg-projects.active { opacity: 0.09; }
+  .bg-projects.active { opacity: 0.13; }
 
   .bg-experience {
     background-image: linear-gradient(var(--muted-dim) 1px, transparent 1px);
@@ -113,7 +113,7 @@
     mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
     -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 45%, #000 30%, transparent 95%);
   }
-  .bg-awards.active { opacity: 0.07; }
+  .bg-awards.active { opacity: 0.1; }
 
   .bg-contact {
     background-image: repeating-radial-gradient(circle at 50% 42%, var(--accent-2) 0 1px, transparent 1px 64px);
@@ -449,6 +449,13 @@
     .diagram-pane { border-left: none; border-top: 1px solid var(--line); }
   }
 
+  .card-diagram {
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-2);
+    padding: 0.7rem 0.7rem 0.5rem;
+  }
+  .card-diagram svg { width: 100%; height: auto; display: block; }
+
   .project-grid .card:nth-child(1) { transition-delay: 0s; }
   .project-grid .card:nth-child(2) { transition-delay: .05s; }
   .project-grid .card:nth-child(3) { transition-delay: .1s; }
@@ -745,6 +752,30 @@
 
     <article class="card reveal">
       <div class="card-head"><span class="led on"></span> Aug 2024 &ndash; Jan 2025</div>
+      <div class="card-diagram">
+        <svg viewBox="0 0 440 150" role="img" aria-labelledby="wgTitle wgDesc">
+          <title id="wgTitle">WebGuardian scan pipeline</title>
+          <desc id="wgDesc">A target URL passes through a recon engine into an 80+ check scan covering SSL/TLS, injection, and WAF fingerprinting, producing a severity report.</desc>
+          <text x="220" y="22" fill="#566173" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">orchestrates 24+ open-source tools</text>
+
+          <rect x="10" y="56" width="76" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="48" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">target url</text>
+
+          <line x1="86" y1="72" x2="116" y2="72" stroke="#7c8b9e" stroke-width="1.5"/>
+          <rect x="116" y="56" width="96" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="164" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">recon engine</text>
+
+          <line x1="212" y1="72" x2="240" y2="72" stroke="#7c8b9e" stroke-width="1.5"/>
+          <rect x="240" y="56" width="96" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="288" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">80+ checks</text>
+
+          <line x1="336" y1="72" x2="362" y2="72" stroke="#e8a33d" stroke-width="1.5"/>
+          <rect x="362" y="56" width="68" height="32" rx="6" fill="#171f2b" stroke="#d9634b"/>
+          <text x="396" y="76" fill="#d9634b" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">report</text>
+
+          <text x="220" y="120" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">SSL/TLS &#183; injection &#183; WAF fingerprint</text>
+        </svg>
+      </div>
       <div class="card-body">
         <h3>WebGuardian</h3>
         <p>A Python framework orchestrating 24+ open-source security tools into 80+ automated checks &mdash; recon, SSL/TLS weakness detection (Heartbleed, POODLE, FREAK, LogJam), injection flaws (SQLi, XSS, RFI/LFI), and WAF fingerprinting, with severity-based report generation.</p>
@@ -755,6 +786,28 @@
 
     <article class="card reveal">
       <div class="card-head"><span class="led on"></span> Jan &ndash; Apr 2025</div>
+      <div class="card-diagram">
+        <svg viewBox="0 0 440 150" role="img" aria-labelledby="idsTitle idsDesc">
+          <title id="idsTitle">IDS model comparison pipeline</title>
+          <desc id="idsDesc">The KDD Cup 1999 dataset feeds five classification algorithms, whose predictions are compared for attack detection across DoS, R2L, U2R, and probing categories.</desc>
+
+          <rect x="10" y="56" width="86" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="53" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">KDD Cup 1999</text>
+
+          <line x1="96" y1="72" x2="126" y2="72" stroke="#7c8b9e" stroke-width="1.5"/>
+          <rect x="126" y="40" width="150" height="64" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="201" y="54" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" font-weight="600" text-anchor="middle">5 classifiers</text>
+          <text x="201" y="68" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">Random Forest &#183; SVM &#183; DT</text>
+          <text x="201" y="80" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">Naive Bayes &#183; Logistic Reg.</text>
+          <text x="201" y="94" fill="#4fb6c7" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">compared for accuracy</text>
+
+          <line x1="276" y1="72" x2="306" y2="72" stroke="#e8a33d" stroke-width="1.5"/>
+          <rect x="306" y="56" width="124" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="368" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">attack detection</text>
+
+          <text x="220" y="128" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">DoS &#183; R2L &#183; U2R &#183; Probing</text>
+        </svg>
+      </div>
       <div class="card-body">
         <h3>Intrusion Detection System (ML)</h3>
         <p>Trained and compared 5 classification algorithms &mdash; Random Forest, SVM, Decision Tree, Naive Bayes, Logistic Regression &mdash; on the KDD Cup 1999 dataset, covering DoS, Remote-to-Local, User-to-Root, and Probing attack categories.</p>
@@ -765,6 +818,36 @@
 
     <article class="card reveal">
       <div class="card-head"><span class="led on"></span> Feb 2026</div>
+      <div class="card-diagram">
+        <svg viewBox="0 0 440 172" role="img" aria-labelledby="ztTitle ztDesc">
+          <title id="ztTitle">Zero-trust Nextcloud network diagram</title>
+          <desc id="ztDesc">Admin access reaches Nextcloud over Tailscale; the public internet reaches it over a Cloudflare Tunnel. MariaDB and Redis sit in an isolated group with no exposed ports.</desc>
+
+          <rect x="10" y="16" width="76" height="30" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="48" y="35" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">admin</text>
+
+          <line x1="86" y1="31" x2="180" y2="66" stroke="#4fb6c7" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <text x="90" y="52" fill="#4fb6c7" font-family="IBM Plex Mono, monospace" font-size="8">tailscale</text>
+
+          <rect x="10" y="112" width="110" height="30" rx="6" fill="none" stroke="#566173" stroke-dasharray="3 3"/>
+          <text x="65" y="131" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">public https</text>
+
+          <line x1="120" y1="120" x2="180" y2="90" stroke="#e8a33d" stroke-width="1.5"/>
+          <text x="122" y="100" fill="#e8a33d" font-family="IBM Plex Mono, monospace" font-size="8">cloudflare tunnel</text>
+
+          <rect x="180" y="58" width="110" height="34" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="235" y="79" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" font-weight="600" text-anchor="middle">nextcloud</text>
+
+          <line x1="290" y1="75" x2="316" y2="75" stroke="#7c8b9e" stroke-width="1.5"/>
+
+          <rect x="316" y="40" width="112" height="96" rx="6" fill="none" stroke="#d9634b" stroke-dasharray="3 3"/>
+          <text x="372" y="53" fill="#d9634b" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">no exposed ports</text>
+          <rect x="326" y="60" width="92" height="28" rx="4" fill="#121822" stroke="#263141"/>
+          <text x="372" y="78" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">mariadb</text>
+          <rect x="326" y="98" width="92" height="28" rx="4" fill="#121822" stroke="#263141"/>
+          <text x="372" y="116" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">redis</text>
+        </svg>
+      </div>
       <div class="card-body">
         <h3>Zero-Trust Self-Hosted Infra</h3>
         <p>A production-style Nextcloud/MariaDB/Redis stack on Docker Compose with zero exposed inbound ports &mdash; admin access via Tailscale, public HTTPS via Cloudflare Tunnel, version-pinned images, an isolated DB container, and automated volume-level backups.</p>
@@ -775,6 +858,31 @@
 
     <article class="card reveal">
       <div class="card-head"><span class="led on"></span> ongoing log</div>
+      <div class="card-diagram">
+        <svg viewBox="0 0 440 150" role="img" aria-labelledby="psTitle psDesc">
+          <title id="psTitle">PortSwigger lab workflow</title>
+          <desc id="psDesc">Each academy lab is paired with a Python exploit script, optionally routed through Burp as a proxy, run against the target application, and logged as solved with notes.</desc>
+          <text x="220" y="22" fill="#566173" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">one folder per vulnerability class</text>
+
+          <rect x="10" y="56" width="90" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="55" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">academy lab</text>
+
+          <line x1="100" y1="72" x2="130" y2="72" stroke="#7c8b9e" stroke-width="1.5"/>
+          <rect x="130" y="56" width="112" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="186" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">exploit script.py</text>
+
+          <line x1="186" y1="88" x2="186" y2="112" stroke="#566173" stroke-width="1.2" stroke-dasharray="3 3"/>
+          <rect x="140" y="112" width="92" height="26" rx="4" fill="none" stroke="#566173" stroke-dasharray="3 3"/>
+          <text x="186" y="129" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">burp proxy (opt.)</text>
+
+          <line x1="242" y1="72" x2="272" y2="72" stroke="#4fb6c7" stroke-width="1.5"/>
+          <rect x="272" y="56" width="82" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="313" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">target app</text>
+
+          <line x1="354" y1="72" x2="380" y2="72" stroke="#6fbf8b" stroke-width="1.5"/>
+          <text x="384" y="76" fill="#6fbf8b" font-family="IBM Plex Mono, monospace" font-size="8">solved</text>
+        </svg>
+      </div>
       <div class="card-body">
         <h3>PortSwigger Labs</h3>
         <p>Solutions and notes for the PortSwigger Web Security Academy, organized by vulnerability class. Every solved lab pairs a runnable exploit script with a short write-up of the underlying flaw and the reasoning that found it.</p>
@@ -785,6 +893,32 @@
 
     <article class="card reveal">
       <div class="card-head"><span class="led wip"></span> actively building</div>
+      <div class="card-diagram">
+        <svg viewBox="0 0 440 150" role="img" aria-labelledby="stTitle stDesc">
+          <title id="stTitle">Sentinel architecture — shell built, engine in progress</title>
+          <desc id="stDesc">The landing page, auth, and Stripe billing shell are built and feed a gated dashboard. The log analysis engine is a separate, still-unwired, work-in-progress component.</desc>
+          <text x="150" y="16" fill="#6fbf8b" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">shell &mdash; built</text>
+
+          <rect x="10" y="24" width="76" height="26" rx="5" fill="#171f2b" stroke="#263141"/>
+          <text x="48" y="41" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">landing</text>
+          <line x1="86" y1="37" x2="94" y2="37" stroke="#566173" stroke-width="1.2"/>
+          <rect x="94" y="24" width="70" height="26" rx="5" fill="#171f2b" stroke="#263141"/>
+          <text x="129" y="41" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">auth</text>
+          <line x1="164" y1="37" x2="172" y2="37" stroke="#566173" stroke-width="1.2"/>
+          <rect x="172" y="24" width="96" height="26" rx="5" fill="#171f2b" stroke="#263141"/>
+          <text x="220" y="41" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">stripe billing</text>
+
+          <line x1="130" y1="50" x2="75" y2="78" stroke="#7c8b9e" stroke-width="1.2"/>
+          <rect x="10" y="78" width="130" height="30" rx="6" fill="#171f2b" stroke="#4fb6c7"/>
+          <text x="75" y="97" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">dashboard (gated)</text>
+
+          <line x1="140" y1="93" x2="160" y2="93" stroke="#e8a33d" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <rect x="160" y="78" width="270" height="30" rx="6" fill="none" stroke="#e8a33d" stroke-dasharray="4 4"/>
+          <text x="295" y="97" fill="#e8a33d" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">analysis engine &mdash; coming soon</text>
+
+          <text x="220" y="130" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">FastAPI &#183; SQLAlchemy &#183; Stripe</text>
+        </svg>
+      </div>
       <div class="card-body">
         <h3>Sentinel &mdash; Log Analyzer</h3>
         <p>A security-analyst-in-a-box for small teams: upload auth/Apache/Nginx/firewall logs and get plain-English findings on brute-force attempts, suspicious IPs, and scanning activity. The FastAPI shell &mdash; auth, Stripe billing, gated dashboard &mdash; is built; the analysis engine is being rebuilt now. Shipping it honestly, mid-build.</p>
@@ -795,6 +929,24 @@
 
     <article class="card reveal">
       <div class="card-head"><span class="led idle"></span> coursework project</div>
+      <div class="card-diagram">
+        <svg viewBox="0 0 440 140" role="img" aria-labelledby="csTitle csDesc">
+          <title id="csTitle">CyberShield page structure</title>
+          <desc id="csDesc">A static vanilla HTML/CSS frontend with three sections: an incident report form, a threat database, and incident search — no backend wired up.</desc>
+
+          <rect x="10" y="30" width="410" height="70" rx="6" fill="none" stroke="#566173" stroke-dasharray="3 3"/>
+          <text x="20" y="24" fill="#566173" font-family="IBM Plex Mono, monospace" font-size="8">static frontend &middot; no backend wired</text>
+
+          <rect x="24" y="48" width="118" height="34" rx="5" fill="#171f2b" stroke="#263141"/>
+          <text x="83" y="69" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">report form</text>
+
+          <rect x="161" y="48" width="118" height="34" rx="5" fill="#171f2b" stroke="#263141"/>
+          <text x="220" y="69" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">threat database</text>
+
+          <rect x="298" y="48" width="118" height="34" rx="5" fill="#171f2b" stroke="#263141"/>
+          <text x="357" y="69" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">search incidents</text>
+        </svg>
+      </div>
       <div class="card-body">
         <h3>CyberShield</h3>
         <p>A front-end concept for a community cybersecurity-incident reporting tool &mdash; an incident report form, a browsable threat database, and incident search, built in vanilla HTML/CSS as a UI exercise.</p>
@@ -805,6 +957,25 @@
 
     <article class="card reveal">
       <div class="card-head"><span class="led idle"></span> university capstone &middot; team</div>
+      <div class="card-diagram">
+        <svg viewBox="0 0 440 140" role="img" aria-labelledby="dfTitle dfDesc">
+          <title id="dfTitle">Deepfake detector data flow</title>
+          <desc id="dfDesc">Uploaded media is passed to a computer-vision classifier backend, which returns a real-or-fake prediction to the web frontend.</desc>
+
+          <rect x="10" y="52" width="96" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="58" y="72" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">upload media</text>
+
+          <line x1="106" y1="68" x2="136" y2="68" stroke="#7c8b9e" stroke-width="1.5"/>
+          <rect x="136" y="52" width="150" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="211" y="72" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">CV / CNN classifier</text>
+
+          <line x1="286" y1="68" x2="316" y2="68" stroke="#4fb6c7" stroke-width="1.5"/>
+          <rect x="316" y="52" width="108" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="370" y="72" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">real / fake</text>
+
+          <text x="220" y="112" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">Python backend &#183; web frontend</text>
+        </svg>
+      </div>
       <div class="card-body">
         <h3>Deepfake Detector</h3>
         <p>Group capstone project for my B.Tech &mdash; a deepfake-detection web application pairing a computer-vision classification backend with a web frontend for uploading and screening media.</p>
@@ -1028,12 +1199,18 @@
     });
   })();
 
-  // Scrollspy active nav link + themed background crossfade
+  // Scrollspy active nav link + themed background crossfade.
+  // Recomputes the section closest to viewport center on every intersection
+  // change, rather than trusting individual IntersectionObserver entries in
+  // isolation — two adjacent sections can both report isIntersecting at a
+  // shared boundary, and processing entries independently made whichever
+  // happened to arrive last in that batch win, so the wrong layer could get
+  // stuck active.
   (function () {
-    var sections = document.querySelectorAll('section[id]');
+    var sections = Array.prototype.slice.call(document.querySelectorAll('section[id]'));
     var links = document.querySelectorAll('#siteNav a');
     var bgLayers = document.querySelectorAll('.bg-layer');
-    if (!sections.length || !('IntersectionObserver' in window)) return;
+    if (!sections.length) return;
 
     var linkMap = {};
     links.forEach(function (a) { linkMap[a.getAttribute('href').slice(1)] = a; });
@@ -1041,25 +1218,36 @@
     var bgMap = {};
     bgLayers.forEach(function (el) { bgMap[el.getAttribute('data-bg')] = el; });
 
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-
-        var link = linkMap[entry.target.id];
-        if (link) {
-          links.forEach(function (a) { a.classList.remove('active'); });
-          link.classList.add('active');
-        }
-
-        var bg = bgMap[entry.target.id];
-        if (bg) {
-          bgLayers.forEach(function (el) { el.classList.remove('active'); });
-          bg.classList.add('active');
-        }
+    function updateActive() {
+      var center = window.innerHeight / 2;
+      var current = sections[0];
+      var bestDist = Infinity;
+      sections.forEach(function (s) {
+        var r = s.getBoundingClientRect();
+        var dist = (r.top <= center && r.bottom >= center) ? 0 : Math.min(Math.abs(r.top - center), Math.abs(r.bottom - center));
+        if (dist < bestDist) { bestDist = dist; current = s; }
       });
-    }, { rootMargin: '-45% 0px -45% 0px' });
 
-    sections.forEach(function (s) { io.observe(s); });
+      var link = linkMap[current.id];
+      if (link) {
+        links.forEach(function (a) { a.classList.remove('active'); });
+        link.classList.add('active');
+      }
+
+      var bg = bgMap[current.id];
+      if (bg) {
+        bgLayers.forEach(function (el) { el.classList.remove('active'); });
+        bg.classList.add('active');
+      }
+    }
+
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(updateActive, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+      sections.forEach(function (s) { io.observe(s); });
+    } else {
+      window.addEventListener('scroll', updateActive, { passive: true });
+    }
+    updateActive();
   })();
 
   // Copy email
