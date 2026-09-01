@@ -464,6 +464,7 @@
   .project-grid .card:nth-child(6) { transition-delay: .25s; }
   .project-grid .card:nth-child(7) { transition-delay: .3s; }
   .project-grid .card:nth-child(8) { transition-delay: .35s; }
+  .project-grid .card:nth-child(9) { transition-delay: .4s; }
 
   /* ---------- timeline ---------- */
   .timeline { list-style: none; margin: 2rem 0 0; padding: 0; border-left: 1px solid var(--line); }
@@ -613,7 +614,7 @@
   <div class="stats-strip">
     <div class="stats-grid">
       <div class="stat"><span class="stat-num" data-count="2">0</span><span class="stat-label">security internships</span></div>
-      <div class="stat"><span class="stat-num" data-count="8">0</span><span class="stat-label">projects shipped</span></div>
+      <div class="stat"><span class="stat-num" data-count="9">0</span><span class="stat-label">projects shipped</span></div>
       <div class="stat"><span class="stat-num" data-count="1" data-suffix="st">0</span><span class="stat-label">place, Cyber Conclave CTF &middot; ~300 competitors</span></div>
       <div class="stat"><span class="stat-num-text">OSCP</span><span class="stat-label">certification track, in progress</span></div>
     </div>
@@ -751,35 +752,35 @@
     </article>
 
     <article class="card reveal">
-      <div class="card-head"><span class="led on"></span> Aug 2024 &ndash; Jan 2025</div>
+      <div class="card-head"><span class="led on"></span> Aug 2024 &ndash; Present</div>
       <div class="card-diagram">
         <svg viewBox="0 0 440 150" role="img" aria-labelledby="wgTitle wgDesc">
           <title id="wgTitle">WebGuardian scan pipeline</title>
-          <desc id="wgDesc">A target URL passes through a recon engine into an 80+ check scan covering SSL/TLS, injection, and WAF fingerprinting, producing a severity report.</desc>
-          <text x="220" y="22" fill="#566173" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">orchestrates 24+ open-source tools</text>
+          <desc id="wgDesc">A target passes through a YAML-driven check registry running concurrently across 11 checks covering ports, TLS, WAF, headers, and DNS, producing a severity report.</desc>
+          <text x="220" y="22" fill="#566173" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">orchestrates 6 security tools</text>
 
           <rect x="10" y="56" width="76" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
           <text x="48" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">target url</text>
 
           <line x1="86" y1="72" x2="116" y2="72" stroke="#7c8b9e" stroke-width="1.5"/>
           <rect x="116" y="56" width="96" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
-          <text x="164" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">recon engine</text>
+          <text x="164" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">YAML registry</text>
 
           <line x1="212" y1="72" x2="240" y2="72" stroke="#7c8b9e" stroke-width="1.5"/>
           <rect x="240" y="56" width="96" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
-          <text x="288" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">80+ checks</text>
+          <text x="288" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">11 checks</text>
 
           <line x1="336" y1="72" x2="362" y2="72" stroke="#e8a33d" stroke-width="1.5"/>
           <rect x="362" y="56" width="68" height="32" rx="6" fill="#171f2b" stroke="#d9634b"/>
           <text x="396" y="76" fill="#d9634b" font-family="IBM Plex Mono, monospace" font-size="9" text-anchor="middle">report</text>
 
-          <text x="220" y="120" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">SSL/TLS &#183; injection &#183; WAF fingerprint</text>
+          <text x="220" y="120" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">port/TLS scan &#183; WAF &#183; headers &#183; DNS</text>
         </svg>
       </div>
       <div class="card-body">
         <h3>WebGuardian</h3>
-        <p>A Python framework orchestrating 24+ open-source security tools into 80+ automated checks - recon, SSL/TLS weakness detection (Heartbleed, POODLE, FREAK, LogJam), injection flaws (SQLi, XSS, RFI/LFI), and WAF fingerprinting, with severity-based report generation.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag">Web AppSec</span><span class="tag danger">80+ checks</span></div>
+        <p>A Python framework orchestrating 6 security tools (nmap, wafw00f, curl, dnsrecon, theHarvester, nikto) into 11 automated checks - port/TLS scanning, WAF detection, header disclosure, DNS zone transfer, and web misconfiguration - via a YAML-driven check registry with concurrent execution and an 18-test pytest suite.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag">Web AppSec</span><span class="tag">pytest</span></div>
         <div class="card-links"><a href="https://github.com/HumerousFi/webguardian">github repo &rarr;</a></div>
       </div>
     </article>
@@ -797,7 +798,7 @@
           <line x1="96" y1="72" x2="126" y2="72" stroke="#7c8b9e" stroke-width="1.5"/>
           <rect x="126" y="40" width="150" height="64" rx="6" fill="#171f2b" stroke="#263141"/>
           <text x="201" y="54" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" font-weight="600" text-anchor="middle">5 classifiers</text>
-          <text x="201" y="68" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">Random Forest &#183; SVM &#183; DT</text>
+          <text x="201" y="68" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">Random Forest &#183; Linear SVM &#183; DT</text>
           <text x="201" y="80" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">Naive Bayes &#183; Logistic Reg.</text>
           <text x="201" y="94" fill="#4fb6c7" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">compared for accuracy</text>
 
@@ -810,7 +811,7 @@
       </div>
       <div class="card-body">
         <h3>Intrusion Detection System (ML)</h3>
-        <p>Trained and compared 5 classification algorithms - Random Forest, SVM, Decision Tree, Naive Bayes, Logistic Regression - on the KDD Cup 1999 dataset, covering DoS, Remote-to-Local, User-to-Root, and Probing attack categories.</p>
+        <p>Trained and compared 5 classifiers - Random Forest, Linear SVM, Decision Tree, Naive Bayes, Logistic Regression - on KDD Cup 1999, with a stratified split and per-class precision/recall given how imbalanced the data is. The real finding: even 99.97%-accurate Random Forest is worst specifically at catching u2r (privilege escalation) - the rarest, most severe category.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">scikit-learn</span><span class="tag">ML detection</span></div>
         <div class="card-links"><a href="https://github.com/HumerousFi/IDS-using-ML-algorithms">github repo &rarr;</a></div>
       </div>
@@ -885,7 +886,7 @@
       </div>
       <div class="card-body">
         <h3>PortSwigger Labs</h3>
-        <p>Solutions and notes for the PortSwigger Web Security Academy, organized by vulnerability class. Every solved lab pairs a runnable exploit script with a short write-up of the underlying flaw and the reasoning that found it.</p>
+        <p>9 SQL injection labs solved and documented on the PortSwigger Web Security Academy - WHERE-clause SQLi, login bypass, UNION attacks, database fingerprinting, and blind SQLi via conditional responses (binary-search extraction, not a linear scan). Each pairs a runnable exploit script with a write-up of the flaw and the reasoning that found it.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag">Web AppSec</span><span class="tag">Burp Suite</span></div>
         <div class="card-links"><a href="https://github.com/HumerousFi/portswigger-labs">github repo &rarr;</a></div>
       </div>
@@ -896,7 +897,7 @@
       <div class="card-diagram">
         <svg viewBox="0 0 440 150" role="img" aria-labelledby="stTitle stDesc">
           <title id="stTitle">Sentinel architecture - shell built, engine in progress</title>
-          <desc id="stDesc">The landing page, auth, and Stripe billing shell are built and feed a gated dashboard. The log analysis engine is a separate, still-unwired, work-in-progress component.</desc>
+          <desc id="stDesc">The landing page, auth, and Razorpay billing shell are built and feed a gated dashboard. The log analysis engine is a separate, still-unwired, work-in-progress component.</desc>
           <text x="150" y="16" fill="#6fbf8b" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">shell - built</text>
 
           <rect x="10" y="24" width="76" height="26" rx="5" fill="#171f2b" stroke="#263141"/>
@@ -906,7 +907,7 @@
           <text x="129" y="41" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">auth</text>
           <line x1="164" y1="37" x2="172" y2="37" stroke="#566173" stroke-width="1.2"/>
           <rect x="172" y="24" width="96" height="26" rx="5" fill="#171f2b" stroke="#263141"/>
-          <text x="220" y="41" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">stripe billing</text>
+          <text x="220" y="41" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">razorpay billing</text>
 
           <line x1="130" y1="50" x2="75" y2="78" stroke="#7c8b9e" stroke-width="1.2"/>
           <rect x="10" y="78" width="130" height="30" rx="6" fill="#171f2b" stroke="#4fb6c7"/>
@@ -916,14 +917,43 @@
           <rect x="160" y="78" width="270" height="30" rx="6" fill="none" stroke="#e8a33d" stroke-dasharray="4 4"/>
           <text x="295" y="97" fill="#e8a33d" font-family="IBM Plex Mono, monospace" font-size="7.5" text-anchor="middle">analysis engine - coming soon</text>
 
-          <text x="220" y="130" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">FastAPI &#183; SQLAlchemy &#183; Stripe</text>
+          <text x="220" y="130" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">FastAPI &#183; SQLAlchemy &#183; Razorpay</text>
         </svg>
       </div>
       <div class="card-body">
         <h3>Sentinel - Log Analyzer</h3>
-        <p>A security-analyst-in-a-box for small teams: upload auth/Apache/Nginx/firewall logs and get plain-English findings on brute-force attempts, suspicious IPs, and scanning activity. The FastAPI shell - auth, Stripe billing, gated dashboard - is built; the analysis engine is being rebuilt now. Shipping it honestly, mid-build.</p>
-        <div class="tags"><span class="tag">FastAPI</span><span class="tag">Stripe</span><span class="tag">SQLAlchemy</span><span class="tag wip">in progress</span></div>
+        <p>A security-analyst-in-a-box for small teams: upload auth/Apache/Nginx/firewall logs and get plain-English findings on brute-force attempts, suspicious IPs, and scanning activity. The FastAPI shell - auth, Razorpay billing (test mode; a prepaid-charge stopgap until Subscriptions clears KYC), gated dashboard - is built; the analysis engine is being rebuilt. Shipping it honestly, mid-build.</p>
+        <div class="tags"><span class="tag">FastAPI</span><span class="tag">Razorpay</span><span class="tag">SQLAlchemy</span><span class="tag wip">in progress</span></div>
         <div class="card-links"><a href="https://github.com/HumerousFi/log-analyzer">github repo &rarr;</a></div>
+      </div>
+    </article>
+
+    <article class="card reveal">
+      <div class="card-head"><span class="led on"></span> 2026 &middot; private repo</div>
+      <div class="card-diagram">
+        <svg viewBox="0 0 440 150" role="img" aria-labelledby="ccTitle ccDesc">
+          <title id="ccTitle">ClauseCheck analysis pipeline</title>
+          <desc id="ccDesc">An uploaded contract or lease is sent through Claude's tool-use API to produce a structured risk breakdown, stored per-user behind Supabase Row-Level Security.</desc>
+          <text x="220" y="22" fill="#566173" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">structured output via tool-use</text>
+
+          <rect x="10" y="56" width="96" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="58" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">upload contract</text>
+
+          <line x1="106" y1="72" x2="136" y2="72" stroke="#7c8b9e" stroke-width="1.5"/>
+          <rect x="136" y="56" width="120" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="196" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">Claude tool-use</text>
+
+          <line x1="256" y1="72" x2="284" y2="72" stroke="#e8a33d" stroke-width="1.5"/>
+          <rect x="284" y="56" width="104" height="32" rx="6" fill="#171f2b" stroke="#263141"/>
+          <text x="336" y="76" fill="#e4e9f0" font-family="IBM Plex Mono, monospace" font-size="8.5" text-anchor="middle">risk report</text>
+
+          <text x="220" y="120" fill="#7c8b9e" font-family="IBM Plex Mono, monospace" font-size="8" text-anchor="middle">Supabase RLS &#183; magic-link auth &#183; Razorpay</text>
+        </svg>
+      </div>
+      <div class="card-body">
+        <h3>ClauseCheck</h3>
+        <p>A SaaS tool that ingests contracts, leases, and ToS documents and returns a structured risk breakdown - overall risk level, plain-English summary, and clause-level flags with rationale - using Claude's tool-use for reliable structured output. Supabase Postgres with Row-Level Security, magic-link auth, and Razorpay subscriptions behind signature-verified webhooks (test mode; live billing gated on pending KYC).</p>
+        <div class="tags"><span class="tag">Next.js</span><span class="tag">Claude API</span><span class="tag">Supabase</span></div>
       </div>
     </article>
 
