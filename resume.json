@@ -1,0 +1,287 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json",
+  "basics": {
+    "name": "Pranav Chaturvedi",
+    "label": "Penetration Tester | VAPT Engineer",
+    "email": "pranavchaturvedi27august@gmail.com",
+    "phone": "+91 9589534912",
+    "url": "https://pranavc.me",
+    "summary": "Cybersecurity & Digital Forensics degree candidate (VIT Bhopal; degree conferral Oct 2026) specializing in offensive security \u2014 web application penetration testing, exploit development, and vulnerability assessment. Builds custom offensive tooling in Python and runs a self-hosted, segmented pentest range for hands-on practice. EC-Council CEH in progress; currently preparing for OSCP.",
+    "location": {
+      "city": "Bhopal",
+      "countryCode": "IN",
+      "region": "Madhya Pradesh"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "pranav27chaturvedi",
+        "url": "https://linkedin.com/in/pranav27chaturvedi"
+      },
+      {
+        "network": "GitHub",
+        "username": "HumerousFi",
+        "url": "https://github.com/HumerousFi"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "CSI Cyber Secured India",
+      "position": "Cybersecurity Intern",
+      "startDate": "2024-09",
+      "endDate": "2025-01",
+      "highlights": [
+        "Identified and assessed security vulnerabilities across client systems and web applications in a structured cybersecurity internship program",
+        "Performed vulnerability scanning, security audits, and documented findings using industry-standard tools and methodologies",
+        "Gained hands-on exposure to real-world security assessment workflows, reporting standards, and remediation recommendations"
+      ]
+    },
+    {
+      "name": "Unified Mentor",
+      "position": "Cybersecurity Intern",
+      "startDate": "2026-05",
+      "endDate": "2026-08",
+      "highlights": [
+        "Applied foundational penetration testing and network security concepts to practical assignments and case studies",
+        "Contributed to vulnerability assessment projects under mentorship guidance, strengthening professional documentation and threat-analysis practices"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Vellore Institute of Technology (VIT) Bhopal",
+      "studyType": "B.Tech",
+      "area": "Cybersecurity & Digital Forensics",
+      "startDate": "2022-09",
+      "endDate": "2026-10",
+      "note": "Coursework complete; degree formally conferred Oct 2026"
+    }
+  ],
+  "projects": [
+    {
+      "id": "webguardian",
+      "name": "WebGuardian \u2014 Web Vulnerability Scanner",
+      "startDate": "2024-08",
+      "endDate": null,
+      "keywords": [
+        "Python",
+        "Web AppSec",
+        "pytest"
+      ],
+      "url": "https://github.com/HumerousFi/webguardian",
+      "github": {
+        "owner": "HumerousFi",
+        "repo": "webguardian"
+      },
+      "highlights": [
+        "Python framework orchestrating security tools (nmap, wafw00f, curl, dnsrecon, theHarvester, nikto) via a declarative YAML check registry into 11 automated checks: port/TLS scanning (Heartbleed, POODLE, CCS injection), WAF detection, header disclosure, DNS zone transfer, and web misconfiguration",
+        "Concurrent execution via a thread pool and list-based subprocess calls (no shell-injection surface); an 18-test pytest suite covers severity classification and report generation independent of whether the external tools are installed"
+      ]
+    },
+    {
+      "id": "homelab-pentest-range",
+      "name": "Isolated Offensive Pentest Range",
+      "startDate": null,
+      "endDate": null,
+      "keywords": [
+        "libvirt",
+        "Kali Linux",
+        "Docker"
+      ],
+      "url": "https://github.com/HumerousFi/homelab-as-code",
+      "github": {
+        "owner": "HumerousFi",
+        "repo": "homelab-as-code"
+      },
+      "highlights": [
+        "Built and maintain a network-segmented pentest lab (NAT-enabled and fully isolated libvirt networks) with a headless Kali attack box and GPU-assisted password cracking",
+        "Practice against deliberately vulnerable targets: OWASP Juice Shop, DVWA, and Metasploitable2"
+      ]
+    },
+    {
+      "id": "portswigger-labs",
+      "name": "PortSwigger Web Security Academy \u2014 SQL Injection Exploitation",
+      "startDate": "2024-04",
+      "endDate": null,
+      "keywords": [
+        "Python",
+        "Burp Suite"
+      ],
+      "url": "https://github.com/HumerousFi/portswigger-labs",
+      "github": {
+        "owner": "HumerousFi",
+        "repo": "portswigger-labs"
+      },
+      "highlights": [
+        "Solved and documented 9 SQL injection labs \u2014 including UNION-based, error-based, and blind SQL injection \u2014 using self-written Python exploit scripts and Burp Suite proxy analysis",
+        "For each lab: authored a self-written Python script automating the exploit end-to-end, plus a technical write-up covering the underlying query logic, discovery methodology, and working payload"
+      ]
+    },
+    {
+      "id": "ids-ml",
+      "name": "Intrusion Detection System Using Machine Learning",
+      "startDate": "2025-01",
+      "endDate": "2025-04",
+      "keywords": [
+        "Python",
+        "scikit-learn"
+      ],
+      "url": "https://github.com/HumerousFi/IDS-using-ML-algorithms",
+      "github": {
+        "owner": "HumerousFi",
+        "repo": "IDS-using-ML-algorithms"
+      },
+      "highlights": [
+        "Trained and compared 5 classifiers (Random Forest, Linear SVM, Decision Tree, Naive Bayes, Logistic Regression) on KDD Cup 1999, using a stratified split and per-class precision/recall given severe class imbalance across 4 attack categories",
+        "Found that every model, including 99.97%-accurate Random Forest, is worst specifically at detecting User-to-Root (privilege escalation) \u2014 the rarest, most severe category, which overall accuracy alone would have hidden"
+      ]
+    },
+    {
+      "id": "zero-trust-infra",
+      "name": "Zero-Trust Self-Hosted Infra",
+      "startDate": "2026-02",
+      "endDate": "2026-02",
+      "keywords": [
+        "Docker",
+        "Tailscale",
+        "Cloudflare Tunnel"
+      ],
+      "url": "https://github.com/HumerousFi/nextcloud-homelab",
+      "github": {
+        "owner": "HumerousFi",
+        "repo": "nextcloud-homelab"
+      },
+      "highlights": [
+        "Production-style Nextcloud/MariaDB/Redis stack on Docker Compose with zero exposed inbound ports \u2014 admin access via Tailscale, public HTTPS via Cloudflare Tunnel, version-pinned images, an isolated DB container, and automated volume-level backups"
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Offensive Security",
+      "keywords": [
+        "Penetration Testing",
+        "Web Application Security",
+        "SQL Injection",
+        "XSS",
+        "SSL/TLS Assessment",
+        "Vulnerability Scanning",
+        "Burp Suite",
+        "Nmap",
+        "Kali Linux"
+      ]
+    },
+    {
+      "name": "Programming & Scripting",
+      "keywords": [
+        "Python",
+        "Bash",
+        "SQL",
+        "JavaScript",
+        "C/C++"
+      ]
+    },
+    {
+      "name": "Systems & Infrastructure",
+      "keywords": [
+        "Linux (Arch, Debian)",
+        "Windows Server",
+        "Docker/Docker Compose",
+        "QEMU/KVM",
+        "VMware Workstation Pro",
+        "libvirt"
+      ]
+    },
+    {
+      "name": "Security Concepts",
+      "keywords": [
+        "OWASP Top 10",
+        "TCP/IP",
+        "Firewall/WAF Concepts",
+        "Zero-Trust Architecture"
+      ]
+    }
+  ],
+  "certificates": [
+    {
+      "name": "EC-Council Certified Ethical Hacker (CEH)",
+      "date": null,
+      "status": "In Progress"
+    },
+    {
+      "name": "Google Cybersecurity Professional Certificate",
+      "issuer": "Google"
+    },
+    {
+      "name": "The Bits and Bytes of Computer Networking & Cyber Security",
+      "issuer": "Google"
+    },
+    {
+      "name": "MongoDB Associate Database Administrator",
+      "issuer": "FACE Prep",
+      "date": "2025-04"
+    }
+  ],
+  "awards": [
+    {
+      "title": "1st Prize, Cyber Conclave Capture The Flag Competition",
+      "awarder": "VIT Bhopal",
+      "summary": "~300 participants"
+    },
+    {
+      "title": "1st Prize, Cybersecurity Reverse Engineering",
+      "awarder": "Cranes Varsity Training Programme"
+    }
+  ],
+  "metrics": {
+    "generatedAt": "2026-09-01T20:20:58Z",
+    "github": {
+      "public_repos": 30,
+      "followers": 9,
+      "fetched_at": "2026-09-01T20:20:58Z"
+    },
+    "projects": {
+      "webguardian": {
+        "stars": 0,
+        "open_issues": 0,
+        "pushed_at": "2026-09-01T17:39:20Z",
+        "last_commit_sha": "7f2394d",
+        "last_commit_message": "Fix false-positive email finding from theHarvester's own banner",
+        "fetched_at": "2026-09-01T20:20:58Z"
+      },
+      "homelab-pentest-range": {
+        "stars": 0,
+        "open_issues": 0,
+        "pushed_at": "2026-09-01T16:48:06Z",
+        "last_commit_sha": "e1e1ad6",
+        "last_commit_message": "Disable Vaultwarden signups after initial account setup",
+        "fetched_at": "2026-09-01T20:20:58Z"
+      },
+      "portswigger-labs": {
+        "stars": 1,
+        "open_issues": 0,
+        "pushed_at": "2026-09-01T18:11:26Z",
+        "last_commit_sha": "ef1780f",
+        "last_commit_message": "Fix stale progress table, upgrade lab9 to binary search",
+        "fetched_at": "2026-09-01T20:20:58Z"
+      },
+      "ids-ml": {
+        "stars": 0,
+        "open_issues": 0,
+        "pushed_at": "2026-09-01T18:01:09Z",
+        "last_commit_sha": "c9909af",
+        "last_commit_message": "Rewrite as a genuinely original pipeline, not a copied methodology",
+        "fetched_at": "2026-09-01T20:20:58Z"
+      },
+      "zero-trust-infra": {
+        "stars": 1,
+        "open_issues": 0,
+        "pushed_at": "2026-09-01T18:04:16Z",
+        "last_commit_sha": "46b1693",
+        "last_commit_message": "Add missing top-level volumes and networks declarations",
+        "fetched_at": "2026-09-01T20:20:58Z"
+      }
+    }
+  }
+}
