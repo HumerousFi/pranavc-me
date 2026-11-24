@@ -6,7 +6,7 @@
     "email": "pranavchaturvedi27august@gmail.com",
     "phone": "+91 9589534912",
     "url": "https://pranavc.me",
-    "summary": "Cybersecurity & Digital Forensics degree candidate (VIT Bhopal; degree conferral Oct 2026) specializing in offensive security \u2014 web application penetration testing, exploit development, and vulnerability assessment. Builds custom offensive tooling in Python and runs a self-hosted, segmented pentest range for hands-on practice. EC-Council CEH in progress; currently preparing for OSCP.",
+    "summary": "Cybersecurity & Digital Forensics graduate (B.Tech, VIT Bhopal, 2026) specializing in offensive security \u2014 web application penetration testing, exploit development, and vulnerability assessment. Builds custom offensive tooling in Python and runs a self-hosted, segmented pentest range for hands-on practice. EC-Council CEH in progress; currently preparing for OSCP.",
     "location": {
       "city": "Bhopal",
       "countryCode": "IN",
@@ -55,7 +55,7 @@
       "area": "Cybersecurity & Digital Forensics",
       "startDate": "2022-09",
       "endDate": "2026-10",
-      "note": "Coursework complete; degree formally conferred Oct 2026"
+      "note": "Degree conferred Oct 2026"
     }
   ],
   "projects": [
